@@ -17,16 +17,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class HelloWorld
  */
-@WebServlet(urlPatterns="/HelloWorld", initParams={
-			@WebInitParam(name="type", value="checking")
-			})
-public class HelloWorld extends HttpServlet {
+@WebServlet("/DispatchedServlet")
+public class DispatchedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public HelloWorld() {
+    public DispatchedServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -39,52 +37,17 @@ public class HelloWorld extends HttpServlet {
 		// Set response content type
 	    response.setContentType("text/html");
 	    PrintWriter pw = response.getWriter();
-	    insertCookie(response);
-	    
-	    HttpSession session = request.getSession(true);
-	    Long creationtime = session.getCreationTime();
-	    String sessionId = session.getId();
 	    
 	    pw.println("<html> <head></head>");
 		pw.println("<body>");
-		pw.println("<h1>Hello World</h1>");
-		
+		pw.println("<h1>Dispatched Servlet ha preso in carico la richiesta</h1>");
 		pw.println(request.getParameter("type"));
-		
-		writeSessionInfo(pw, session);
+				
 		pw.println("</body></html>");
 		//response.sendRedirect("http://www.google.it");
-		
-		//occhio se il type = CAMBIO allora attivo l'altra servlet
-		String type_requested = request.getParameter("type");
-		if(type_requested != null && type_requested.equals("CAMBIO"))
-		{
-			request.getRequestDispatcher("DispatchedServlet").forward(request, response);
-		}
-		
 	}
 	
-	private void writeSessionInfo(PrintWriter pw, HttpSession session) {
-		// TODO Auto-generated method stub
-		pw.println("<p> SessionId: "+session.getId()+"</p>");
-		pw.println("<p> Creation Time: "+writeDate(session.getCreationTime())+"</p>");
-		pw.println("<p> Last Accessed Time: "+writeDate(session.getLastAccessedTime())+"</p>");		
-	}
-
-	private String writeDate(long longDate) {
-		// TODO Auto-generated method stub
-		DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM);
-		Date date = new Date(longDate);
-		
-		return formatter.format(date);
-	}
-
-	protected void insertCookie(HttpServletResponse res){
-		//Create a Simple Cookie that it wil be shown on the webpage
-		Cookie cookie_name = new Cookie("NomeDev", "splogad");
-		res.addCookie(cookie_name);
-	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
