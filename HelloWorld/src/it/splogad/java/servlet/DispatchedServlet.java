@@ -40,11 +40,10 @@ public class DispatchedServlet extends HttpServlet {
 	    
 	    pw.println("<html> <head></head>");
 		pw.println("<body>");
-		pw.println("<h1>Dispatched Servlet ha preso in carico la richiesta</h1>");
+		pw.println("<h1>Dispatched Servlet took the control...</h1>");
 		pw.println(request.getParameter("type"));
 				
 		pw.println("</body></html>");
-		//response.sendRedirect("http://www.google.it");
 	}
 	
 	

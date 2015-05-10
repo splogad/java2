@@ -44,7 +44,8 @@ public class HelloWorld extends HttpServlet {
 	    HttpSession session = request.getSession(true);
 	    Long creationtime = session.getCreationTime();
 	    String sessionId = session.getId();
-	    
+	    //after 20 seconds it generates a new sessionId
+	    session.setMaxInactiveInterval(20);;
 	    pw.println("<html> <head></head>");
 		pw.println("<body>");
 		pw.println("<h1>Hello World</h1>");
@@ -55,12 +56,15 @@ public class HelloWorld extends HttpServlet {
 		pw.println("</body></html>");
 		//response.sendRedirect("http://www.google.it");
 		
-		//occhio se il type = CAMBIO allora attivo l'altra servlet
+		//if type's value is CHANGE, then a new servlet is invoked
 		String type_requested = request.getParameter("type");
-		if(type_requested != null && type_requested.equals("CAMBIO"))
+		if(type_requested != null && type_requested.equals("CHANGE"))
 		{
 			request.getRequestDispatcher("DispatchedServlet").forward(request, response);
+		} else if(type_requested != null && type_requested.equals("GOOGLE")){
+			response.sendRedirect("http://www.google.it");
 		}
+			
 		
 	}
 	
