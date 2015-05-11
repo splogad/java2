@@ -27,6 +27,8 @@ for(Cookie cookie : cookies){
 User=<%=user %>
 <br>
 <a href="CheckoutPage.jsp">Checkout Page</a>
+<br />
+<a href="AsyncServlet">Async Servlet</a>
 <form action="LogoutServlet" method="post">
 <input type="submit" value="Logout" >
 </form>
