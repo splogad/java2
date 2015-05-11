@@ -56,19 +56,40 @@ public void service(ServletRequest req, final ServletResponse res)
     public void run() {
 
       try {
+    	  Thread.sleep(6000);
         ctx.getResponse().getWriter().write(
             MessageFormat.format("<h1>Processing task in bgt_id:[{0}]</h1>",
                                  Thread.currentThread().getId()));
       }
       catch (IOException e) {
         log("Problem processing task", e);
-      }
+      } catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
       ctx.complete();
     }
   });
 
+  ctx.start(new Runnable() {
+	    public void run() {
 
-}
+	      try {
+	    	  Thread.sleep(3000);
+	        ctx.getResponse().getWriter().write(
+	            MessageFormat.format("<h1>Processing task in bgt_id:[{0}]</h1>",
+	                                 Thread.currentThread().getId()));
+	      }
+	      catch (IOException e) {
+	        log("Problem processing task", e);
+	      } catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	      ctx.complete();
+	    }
+	  });
+	}
 }
